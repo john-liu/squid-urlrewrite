@@ -13,6 +13,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+    net_url "net/url"
 )
 
 type actionType int
@@ -157,7 +158,7 @@ func doRewriter(id, url string, rwpatterns *[]RewritePattern, isDebug bool) {
 			rurl = rwp.Target
 
 			for i, s := range ms {
-				rurl = strings.Replace(rurl, fmt.Sprintf("$%d", i), s, -1)
+				rurl = strings.Replace(rurl, fmt.Sprintf("$%d", i), net_url.QueryEscape(s), -1)
 			}
 
 			matched = rwp
